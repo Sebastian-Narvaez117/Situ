@@ -1,0 +1,25 @@
+{% extends "./base.html" %}
+{% block title %}
+    Pasaje
+{% endblock %}
+
+{% block body %}
+
+<center></center>
+    <article>
+        <p class="animate__animated animate__pulse animate__infinite"
+        style="font-family: 'Comic Sans MS', sans-serif; font-size: 50px; ">SITU</p><br>
+    </article>        
+</center>
+
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    
+    {{ form.as_p }}
+
+    <button type="submit" class="btn btn-primary">Guardar</button>
+    
+    <a href="{% url 'pasajeros' %}" class="btn btn-secondary">Cancelar</a>
+</form>
+
+{% endblock body %}

@@ -1,0 +1,123 @@
+{% extends "./base.html" %}
+{% load static %}
+{% block title %}
+    PASAJE
+{% endblock %}
+
+{% block body %}
+
+<div class="container mt-5">
+
+    <!-- 🔥 HEADER -->
+    <div class="d-flex justify-content-center align-items-center gap-3 mb-4">
+
+        <img src="{% static 'logo.png' %}" 
+             alt="Logo"
+             width="60" height="60"
+             class="rounded-circle shadow">
+    
+        <h1 class="fw-bold text-primary m-0">
+            🚍 SITU
+        </h1>
+    
+    </div>
+    
+    <p class="text-center text-muted">
+        Sistema de Gestión de Pasajeros
+    </p>
+
+    <!-- 🔘 BOTÓN AGREGAR -->
+    <div class="d-flex justify-content-end mb-3">
+        <a href="{% url 'pasajerosCreate' %}" class="btn btn-success shadow">
+            ➕ Agregar Pasajero
+        </a>
+    </div>
+
+    <!-- 📦 CARD -->
+    <div class="card shadow-lg border-0 rounded-4">
+        <div class="card-body">
+
+            <h4 class="mb-3 text-secondary">Listado de Pasajeros</h4>
+
+            <!-- 📊 TABLA -->
+            <div class="table-responsive">
+                <table class="table table-hover align-middle text-center">
+
+                    <!-- 🧠 CABECERA -->
+                    <thead class="table-dark">
+                        <tr>
+                            <th>#</th>
+                            <th>Cédula</th>
+                            <th>Nombre</th>
+                            <th>Apellido</th>
+                            <th>Teléfono</th>
+                            <th>Imagen</th>
+                            <th>Email</th>
+                            <th>Opciones</th>
+                        </tr>
+                    </thead>
+
+                    <!-- 📋 DATOS -->
+                    <tbody>
+                        {% for e in pasajeros %}
+                        <tr class="shadow-sm">
+
+                            <td class="fw-bold">{{ forloop.counter }}</td>
+
+                            <td>{{ e.cedula }}</td>
+
+                            <td class="text-primary fw-semibold">{{ e.nombre }}</td>
+
+                            <td>{{ e.apellido }}</td>
+
+                            <td>
+                                <span class="badge bg-info text-dark">
+                                    {{ e.telefono }}
+                                </span>
+                            </td>
+
+                            <!-- 🖼️ IMAGEN -->
+                            <td>
+                                {% if e.imagen %}
+                                    <img src="{{ e.imagen.url }}" 
+                                    ass="rounded-circle shadow"
+                                    width="60" height="60">
+                                {% else %}
+                                    <img src="{% static 'logo.png' %}" 
+                                    class="rounded-circle shadow"
+                                    width="60" height="60">
+                                {% endif %}
+                            </td>
+
+                            <td class="text-muted">{{ e.email }}</td>
+
+                            <!-- 🎛️ BOTONES -->
+                            <td>
+                                <div class="d-flex justify-content-center gap-2">
+
+                                    <a href="{% url 'pasajerosEdit' e.id %}" 
+                                    class="btn btn-sm btn-outline-primary">
+                                        ✏️
+                                    </a>
+
+                                    <a href="{% url 'eliminar_pasajero' e.id %}" 
+                                    class="btn btn-sm btn-outline-danger">
+                                        🗑️
+                                    </a>
+
+                                </div>
+                            </td>
+
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+
+                </table>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+{% endblock body %}
